@@ -15,7 +15,6 @@ export class Block {
    * @param block The mock block data
    */
   constructor(block?: Block) {
-    console.log("isValid");
     this.index = block?.index || 0;
     this.timestamp = block?.timestamp || Date.now();
     this.previousHash = block?.previousHash || "";

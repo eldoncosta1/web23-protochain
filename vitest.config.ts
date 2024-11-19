@@ -6,12 +6,10 @@ export default defineConfig({
   test: {
     globals: true,
     root: ".",
-    environmentMatchGlobs: [
-      ["./**/*.test.ts", "./vitest-environments/prisma.ts"],
-    ],
     setupFiles: ["./vitest.setup.ts"],
     coverage: {
       reporter: ["text", "json", "html"],
+      // include: ["src/**/*.{test,spec}.ts"],
     },
     deps: {
       moduleDirectories: ["node_modules", "src"],
