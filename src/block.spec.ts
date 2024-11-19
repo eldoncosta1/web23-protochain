@@ -1,4 +1,4 @@
-import Block from "./block";
+import { Block } from "./block";
 
 describe("Block Tests", () => {
   let genesisBlock: Block;
