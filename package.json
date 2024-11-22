@@ -6,8 +6,8 @@
   "keywords": [],
   "author": "Eldon Costa",
   "scripts": {
-    "dev": "tsx watch src/server/blockchainServer.ts",
-    "debug": "tsx --inspect-brk src/server/blockchainServer.ts",
+    "dev": "tsx watch src/server/app.ts",
+    "debug": "tsx --inspect-brk src/server/app.ts",
     "build": "tsup src --out-dir build",
     "start": "node build/blockchain.js",
     "test": "vitest run",
