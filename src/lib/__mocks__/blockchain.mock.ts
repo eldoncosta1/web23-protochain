@@ -1,5 +1,6 @@
 import { Block } from "../block";
-import Validation from "../lib/validation";
+import { BlockInfo } from "../blockinfo";
+import Validation from "../validation";
 /**
  * Mocked Blockchain class
  */
@@ -46,5 +47,20 @@ export class Blockchain {
 
   public isValid(): Validation {
     return new Validation();
+  }
+
+  public getFeePerTx(): number {
+    return 1;
+  }
+
+  public getNextBlock(): BlockInfo {
+    return {
+      data: new Date().toString(),
+      difficulty: 0,
+      previousHash: this.getLastBlock().getHash(),
+      index: 1,
+      feePerTx: this.getFeePerTx(),
+      maxDifficulty: 62,
+    };
   }
 }

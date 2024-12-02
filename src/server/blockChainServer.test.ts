@@ -1,15 +1,15 @@
 import request from "supertest";
 
-vi.mock("../block", async () => {
-  return await import("../__mocks__/block.mock");
+vi.mock("../lib/block", async () => {
+  return await import("../lib/__mocks__/block.mock");
 });
 
-vi.mock("../blockchain", async () => {
-  return await import("../__mocks__/blockchain.mock");
+vi.mock("../lib/blockchain", async () => {
+  return await import("../lib/__mocks__/blockchain.mock");
 });
 
 import { app } from "./blockChainServer";
-import { Block } from "src/block";
+import { Block } from "src/lib/block";
 
 describe("BlockChainServer Test", () => {
   it("GET /status - should return status", async () => {
@@ -24,6 +24,13 @@ describe("BlockChainServer Test", () => {
 
     expect(response.status).toEqual(200);
     expect(response.body.index).toEqual(0);
+  });
+
+  it("GET /status/next - should get next block info", async () => {
+    const response = await request(app).get("/blocks/next");
+
+    expect(response.status).toEqual(200);
+    expect(response.body.index).toEqual(1);
   });
 
   it("GET /blocks/:hash - should get block", async () => {

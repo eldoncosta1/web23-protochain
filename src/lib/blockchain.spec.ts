@@ -3,7 +3,7 @@ import { Block } from "./block";
 import { Blockchain } from "./blockchain";
 
 vi.mock("./block", async () => {
-  return await import("../src/__mocks__/block.mock");
+  return await import("./__mocks__/block.mock");
 });
 
 describe("Blockchain tests", () => {
@@ -71,5 +71,11 @@ describe("Blockchain tests", () => {
       blockchain.getBlocks()[0].getHash()
     );
     expect(block).toBeTruthy();
+  });
+
+  it("should get next block info", () => {
+    const blockchain = new Blockchain();
+    const info = blockchain.getNextBlock();
+    expect(info.index).toEqual(1);
   });
 });

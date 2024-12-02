@@ -1,6 +1,8 @@
 import { Block } from "./block";
 
 describe("Block Tests", () => {
+  const exampleDifficulty = 2;
+  const exampleMiner = "eldon";
   let genesisBlock: Block;
 
   beforeAll(() => {
@@ -13,9 +15,11 @@ describe("Block Tests", () => {
       previousHash: genesisBlock.getHash(),
       data: "block 2",
     } as unknown as Block);
+    block.mine(exampleDifficulty, exampleMiner);
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeTruthy();
   });
@@ -24,7 +28,8 @@ describe("Block Tests", () => {
     const block = new Block();
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeFalsy();
   });
@@ -37,7 +42,8 @@ describe("Block Tests", () => {
     } as unknown as Block);
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeFalsy();
   });
@@ -52,21 +58,38 @@ describe("Block Tests", () => {
     block.setHash(block.getHash());
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeFalsy();
   });
 
-  it("should not be valid (hash)", () => {
+  it("should not be valid (empty hash)", () => {
     const block = new Block({
       index: 1,
       previousHash: genesisBlock.getHash(),
       data: "block 2",
     } as unknown as Block);
+    block.mine(exampleDifficulty, exampleMiner);
     block.setHash("");
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
+    );
+    expect(valid.success()).toBeFalsy();
+  });
+
+  it("should not be valid (no mined)", () => {
+    const block = new Block({
+      index: 1,
+      previousHash: genesisBlock.getHash(),
+      data: "block 2",
+    } as unknown as Block);
+    const valid = block.isValid(
+      genesisBlock.getHash(),
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeFalsy();
   });
@@ -79,7 +102,8 @@ describe("Block Tests", () => {
     } as unknown as Block);
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeFalsy();
   });
@@ -92,7 +116,8 @@ describe("Block Tests", () => {
     } as unknown as Block);
     const valid = block.isValid(
       genesisBlock.getHash(),
-      genesisBlock.getIndex()
+      genesisBlock.getIndex(),
+      exampleDifficulty
     );
     expect(valid.success()).toBeFalsy();
   });
