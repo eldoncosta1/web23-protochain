@@ -1,4 +1,5 @@
 import { Block } from "./block";
+import { BlockInfo } from "./blockinfo";
 
 describe("Block Tests", () => {
   const exampleDifficulty = 2;
@@ -15,6 +16,24 @@ describe("Block Tests", () => {
       previousHash: genesisBlock.getHash(),
       data: "block 2",
     } as unknown as Block);
+    block.mine(exampleDifficulty, exampleMiner);
+    const valid = block.isValid(
+      genesisBlock.getHash(),
+      genesisBlock.getIndex(),
+      exampleDifficulty
+    );
+    expect(valid.success()).toBeTruthy();
+  });
+
+  it("should be create from block info", () => {
+    const block = Block.getBlockfromBlockInfo({
+      data: "Block 2",
+      difficulty: exampleDifficulty,
+      feePerTx: 1,
+      index: 1,
+      maxDifficulty: 62,
+      previousHash: genesisBlock.getHash(),
+    } as BlockInfo);
     block.mine(exampleDifficulty, exampleMiner);
     const valid = block.isValid(
       genesisBlock.getHash(),

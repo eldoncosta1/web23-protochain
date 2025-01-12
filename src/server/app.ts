@@ -1,8 +1,10 @@
-import express from "express";
-import morgan from "morgan";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { env } from "src/env";
 import { app } from "./blockChainServer";
 
-const PORT: number = 3000;
+const PORT: number = parseInt(`${env.BLOCKCHAIN_PORT}`);
 
 app.listen(PORT, () => {
   console.log(`Blockchain server is running at ${PORT}`);

@@ -1,12 +1,17 @@
+import dotenv from "dotenv";
+dotenv.config();
 import axios from "axios";
 import { BlockInfo } from "../lib/blockinfo";
 import { Block } from "src/lib/block";
+import { env } from "src/env";
 
-const BLOCKCHAIN_SERVER = "http://localhost:3000";
+const BLOCKCHAIN_SERVER = env.BLOCKCHAIN_SERVER;
 const minerWallet = {
   privateKey: "",
-  publicKey: "eldoncosta",
+  publicKey: env.MINER_WALLET,
 };
+
+console.log(`Logged as: ${minerWallet.publicKey}`);
 
 let totalMined = 0;
 
